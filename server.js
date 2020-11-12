@@ -32,7 +32,7 @@ app.use("/",indexRouter);
 app.use("/books",booksRouter);
 app.use("/authors",authorRouter);
 
-app.listen(3000,() => {
+app.listen(process.env.PORT || 3000,() => {
     console.log("Server up and running at http://127.0.0.1:3000");
 })
 
