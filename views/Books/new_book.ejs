@@ -1,0 +1,16 @@
+<h1> Add Book </h1>
+<form action = "/books/post" method = "POST" enctype = "multipart/form-data"> 
+    Title:<input type = "text" name = "name"><br>
+    Author Name:<select name = "author">
+        <% authors.forEach(author => {%>
+            <option label = "<%= author.Name %>" value = "<%= author.id %>">
+        <% }) %>    
+    </select><br>
+    Publish Date:<input type = "datetime-local" name = "publishDate"><br>
+    Page Count:<input type = "number" min = "1" name = "pageCount"><br>
+    CoverImage:<input type = "file" name = "cover"> 
+    Tags: <input type = "text" name = "tags">
+
+    <button><a href = "/books"> Cancel </a></button>
+    <button type = "submit"> Submit </button>
+</form>

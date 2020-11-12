@@ -1,0 +1,9 @@
+<h3>List of all Books</h3>
+<div style = "display: inline-flex">
+<% books.forEach(book => { %>
+    <div class = "ml-5 mr-5">
+        <img src = "<%= book.coverImagePath %>" height = "200" width = "150">
+        <div><%= book.Name %></div>
+    </div>    
+<% }) %> 
+</div>
