@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const Books = require("../models/Book.js");
+const verify = require("./verifyToken.js");
 const imagePath = path.join("public", Books.coverImageBasePath);
 const fs = require("fs");
 const Authors = require("../models/Author.js");
@@ -14,11 +15,11 @@ const upload = multer({
     }
 });
 
-router.get("/", (req, res) => {
+router.get("/", verify , (req, res) => {
     res.render("Books/home_page");
 });
 
-router.get("/all", async (req,res) =>  {
+router.get("/all", verify , async (req,res) =>  {
     try {
         const allBooks = await Books.find();
         res.render("Books/List.ejs", {books: allBooks});
@@ -45,7 +46,7 @@ router.get("/find", async (req,res) =>  {
     }
 })
 
-router.get("/new", async (req,res) => {
+router.get("/new", verify , async (req,res) => {
     try {
         const allAuthors = await Authors.find().sort({ Name: 1}).limit(4).exec();
         res.render("Books/new_book.ejs", {authors: allAuthors});    
