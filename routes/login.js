@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 
 router.get("/", (req,res) => {
     res.render("Login/login.ejs");
@@ -26,10 +27,11 @@ router.post("/", async (req,res) => {
                 res.redirect("/login");
             } 
             const token = jwt.sign({ email: userEmail }, process.env.SECRET_TOKEN);
-            //res.header("jwt-token", token).send(token);
+            //res.cookie('jwt-token', token);
+            res.cookie('jwt', token, {httpOnly: true, maxAge: 60*60*60});
             res.redirect("/books/all");    
         }
-        res.redirect("/");
+        //res.redirect("/");
     }    
     catch(err) {
         console.log(err);
@@ -48,8 +50,8 @@ router.post("/new", async (req,res) => {
             email: req.body.email,
             password: hashedPassword,
         });
-        const saveUser = await user.save();
         console.log(user);
+        const saveUser = await user.save();
         res.redirect("/");
     }
     catch(err) {
@@ -58,6 +60,7 @@ router.post("/new", async (req,res) => {
 });
 
 router.get("/out", (req,res) => {
+    res.cookie('jwt', '', {expires: new Date(0)});
     res.render("Login/login.ejs");
 });
 
