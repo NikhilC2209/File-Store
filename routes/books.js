@@ -49,6 +49,7 @@ router.get("/find", async (req,res) =>  {
 router.get("/new", verify , async (req,res) => {
     try {
         const allAuthors = await Authors.find().sort({ Name: 1}).limit(4).exec();
+        console.log(allAuthors);
         res.render("Books/new_book.ejs", {authors: allAuthors});    
     }
     catch(error) {

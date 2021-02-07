@@ -38,7 +38,8 @@ router.post("/post", async (req,res) => {
 router.get("/all", async (req,res) => {
     try {
         const allauthors = await Authors.find({});
-        res.render("authors/List.ejs", {authors: allauthors});    
+        console.log(allauthors);
+        res.render("Authors/List.ejs", {authors: allauthors});    
     }
     catch(error) {
         console.log(error);
