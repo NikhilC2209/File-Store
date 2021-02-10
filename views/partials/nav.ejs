@@ -28,10 +28,19 @@
             Dropdown link
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/login">Login</a>
-            <a class="dropdown-item" href="/login/new">Sign Up</a>
+            <a class="dropdown-item" href="/login/options/0">Login</a>
+            <a class="dropdown-item" href="/login/options/1">Sign Up</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <% if (token==null) { %>
+                Logged Out
+            <% } else { %>
+              <%= token %>   
+            <% } %>
+          </a>
         </li>
       </ul>
     </div>

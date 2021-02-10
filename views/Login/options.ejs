@@ -1,0 +1,40 @@
+<style>
+    .main {
+        display: grid;
+        grid-template-columns: auto auto;
+        margin-top: 40px;
+    }
+
+    .sub {
+        text-align: center;
+        /*border: 2px solid black;*/
+    }
+
+    .sub > * {
+        margin: 40px;
+    }
+
+    .icon {
+        height: 300px;
+    }
+</style>
+<div class = "main">
+    <div class = "sub">
+        <h1>Author</h1>
+        <% if (type==0) { %>
+            <a href = "/login">
+        <% } else { %>
+            <a href = "/login/new">
+        <% } %>        
+        <img src = "/icons/biography.png" class = "icon" style = "position: relative;left: 40px;"></a>
+    </div>
+    <div class = "sub">
+        <h1>User</h1>
+        <% if (type==0) { %>
+            <a href = "/login">
+        <% } else { %>
+            <a href = "/login/new">
+        <% } %>       
+        <img src = "/icons/user.png" class = "icon" ></a>
+    </div>
+</div>

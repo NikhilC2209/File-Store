@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require("path");
 const Books = require("../models/Book.js");
 const verify = require("./verifyToken.js");
+const checkToken = require("./checkToken.js");
 const imagePath = path.join("public", Books.coverImageBasePath);
 const fs = require("fs");
 const Authors = require("../models/Author.js");
@@ -15,30 +16,28 @@ const upload = multer({
     }
 });
 
-router.get("/", verify , (req, res) => {
-    res.render("Books/home_page");
+router.get("/", verify , checkToken, (req, res) => {
+    res.render("Books/home_page", {token: req.token});
 });
 
-router.get("/all", verify , async (req,res) =>  {
+router.get("/all", verify, checkToken, async (req,res) =>  {
     try {
         const allBooks = await Books.find();
-        res.render("Books/List.ejs", {books: allBooks});
+        res.render("Books/List.ejs", {books: allBooks, token: req.token});
     }
     catch {
         res.redirect("/");
     }
 })
 
-router.get("/find", async (req,res) =>  {
+router.get("/find", checkToken, async (req,res) =>  {
     var searchBar = {};
     if (req.query.name != null && req.query.name !== "") {
         searchBar.Name = new RegExp(req.query.name, "i");
-        console.log("Working");
     }
     try {
         const findBooks = await Books.find(searchBar);
-        res.render("Books/find.ejs", {booksy: findBooks, searchBar: req.query });
-        console.log(findBooks);
+        res.render("Books/find.ejs", {booksy: findBooks, searchBar: req.query, token: req.token });
     }
     catch(error) {
         console.log(error);
@@ -46,11 +45,11 @@ router.get("/find", async (req,res) =>  {
     }
 })
 
-router.get("/new", verify , async (req,res) => {
+router.get("/new", verify , checkToken ,async (req,res) => {
     try {
         const allAuthors = await Authors.find().sort({ Name: 1}).limit(4).exec();
         console.log(allAuthors);
-        res.render("Books/new_book.ejs", {authors: allAuthors});    
+        res.render("Books/new_book.ejs", {authors: allAuthors, token: req.token});    
     }
     catch(error) {
         console.log(error);

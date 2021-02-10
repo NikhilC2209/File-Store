@@ -4,9 +4,18 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
+const checkToken = require("./checkToken.js");
 
-router.get("/", (req,res) => {
-    res.render("Login/login.ejs");
+router.get("/", checkToken, (req,res) => {
+    res.render("Login/login.ejs", {token: req.token});
+});
+
+router.get("/options/0", checkToken, (req,res) => {
+    res.render("Login/options.ejs", {type: 0,token: req.token});
+});
+
+router.get("/options/1", checkToken, (req,res) => {
+    res.render("Login/options.ejs", {type: 1,token: req.token});
 });
 
 router.post("/", async (req,res) => {
@@ -26,7 +35,7 @@ router.post("/", async (req,res) => {
                 //error = "Password incorrect!";
                 res.redirect("/login");
             } 
-            const token = jwt.sign({ email: userEmail }, process.env.SECRET_TOKEN);
+            const token = jwt.sign({ name: emailExists.name }, process.env.SECRET_TOKEN);
             //res.cookie('jwt-token', token);
             res.cookie('jwt', token, {httpOnly: true, maxAge: 60*60*60});
             res.redirect("/books/all");    
@@ -38,8 +47,8 @@ router.post("/", async (req,res) => {
     }
 });
 
-router.get("/new", (req,res) => {
-    res.render("Login/register.ejs");
+router.get("/new", checkToken, (req,res) => {
+    res.render("Login/register.ejs", {token: req.token});
 });
 
 router.post("/new", async (req,res) => {
@@ -59,9 +68,9 @@ router.post("/new", async (req,res) => {
     }
 });
 
-router.get("/out", (req,res) => {
+router.get("/out", checkToken, (req,res) => {
     res.cookie('jwt', '', {expires: new Date(0)});
-    res.render("Login/login.ejs");
+    res.render("Login/login.ejs", {token: null});
 });
 
 
