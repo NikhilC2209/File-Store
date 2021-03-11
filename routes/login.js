@@ -37,7 +37,7 @@ router.post("/", async (req,res) => {
             } 
             const token = jwt.sign({ name: emailExists.name }, process.env.SECRET_TOKEN);
             //res.cookie('jwt-token', token);
-            res.cookie('jwt', token, {httpOnly: true, maxAge: 60*60*60});
+            res.cookie('jwt', token, {httpOnly: true, maxAge: 1000*60*60});
             res.redirect("/books/all");    
         }
         //res.redirect("/");

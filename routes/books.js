@@ -1,20 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
 const Books = require("../models/Book.js");
 const verify = require("./verifyToken.js");
 const checkToken = require("./checkToken.js");
-const imagePath = path.join("public", Books.coverImageBasePath);
-const fs = require("fs");
 const Authors = require("../models/Author.js");
-const multer = require("multer");
 const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
-const upload = multer({
-    dest: imagePath,
-    fileFilter: (req, file, callback) => {
-        callback(null, imageMimeTypes.includes(file.mimetype));
-    }
-});
+
 
 router.get("/", verify , checkToken, (req, res) => {
     res.render("Books/home_page", {token: req.token});
@@ -57,44 +48,32 @@ router.get("/new", verify , checkToken ,async (req,res) => {
     }
 })
 
-function removeBookCover(fileName) {
-    fs.unlink(path.join(imagePath, fileName), (err) => {
-        if (err) {
-            console.log(err);
-        }
-    })
+
+function saveCover(book, coverImageString) {
+    if(coverImageString == null) return
+    const cover = JSON.parse(coverImageString);
+    if(cover != null && imageMimeTypes.includes(cover.type)) {
+        book.coverImage = new Buffer.from(cover.data, "base64");
+        book.coverImageType = cover.type;
+    }
 }
 
-router.post("/post", upload.single("cover") , async (req,res) => {
-    //if (req.file != null) {
-    //    const fileName = req.file.fileName;
-    //}
-    //else {
-    //    const fileName = null;
-    //}
-
-    const fileName = req.file != null ? req.file.filename : null;
-
-    console.log(req.file.filename);
-
+router.post("/post", async (req,res) => {
     const Book = new Books({
         Name: req.body.name,
         Author: req.body.author,
         publishDate: req.body.publishDate,
         pageCount: req.body.pageCount,
-        coverImage: fileName,
         Tags: req.body.tags,
     });
+    saveCover(Book,req.body.cover);
+    console.log(Book);
+
     try {
         const newBook = await Book.save();
         res.redirect("/books/find");
     }
     catch (error){
-       // res.render("Books/new_page", {
-       //     book: book,
-       //     errorMessage: "Error creating Book"
-       // })
-       removeBookCover(Book.coverImage);;
        console.log(error);
        res.redirect("/books/all");
     }
