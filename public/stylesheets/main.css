@@ -1,0 +1,96 @@
+@import '../common/fonts.css';
+
+body {
+    font-family: 'Roboto';
+    font-size: 20px;
+}
+
+.land-img {
+    /*border: 2px solid black;*/
+    position: absolute;
+    right: 0;
+    margin: 180px 45px 0 0;
+}
+
+.land-div {
+    padding-top: 260px;
+}
+
+.land-div h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 64px;
+}
+
+.land-btn {
+    border-radius: 35px;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%);
+    width: 180px;
+    transition: 0.5s;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.land-btn:hover {
+    background-position: right center;
+}
+
+.land-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+.back {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 6px;
+    background: linear-gradient(to right, #f12711, #f5af19);
+    opacity: 0.3;
+}
+
+.one {
+    top:10%;
+    left:10%;
+}
+
+.two {
+    top:25%;
+    left:60%;
+    background: linear-gradient(to right, #a8ff78, #78ffd6);
+}
+
+.c1 {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    background: linear-gradient(to right, #a8ff78, #78ffd6);
+    opacity: 0.6;
+    background-size: 200% auto;
+    transition: 0.5s;
+}
+
+.c1:hover {
+    background-position: right center;
+}
+
+#land-blob {
+    position: absolute;
+    top: 0;  
+    left: 5%; 
+    z-index: 1;
+    overflow:visible;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.custom-nav {
+    /*background: linear-gradient(to right, rgba(106,48,147,0.4), rgba(160,68,255,0.8));*/
+    box-shadow: -1px 7px 11px 5px rgba(189,178,178,0.52);
+    z-index: 1;
+    height: 70px;
+}

@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 
 app.set("view engine","ejs");
 app.set("views", __dirname + "/views");
-app.set("layout", "layouts/basic");
+app.set("layout", "layouts/basic","layouts/index");
 app.use(expressLayouts);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }))

@@ -1,0 +1,10 @@
+<h1>
+    <%= author.Name %> 
+</h1>
+<h1>
+    Books by Author:
+</h1>
+    <% books.forEach(book => { %>
+        <img src = "<%= book.coverImagePath %>" height = "200" width = "150">
+        <div><%= book.Name %></div>
+    <% }) %>     

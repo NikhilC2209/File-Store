@@ -5,13 +5,18 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const checkToken = require("./checkToken.js");
+var fs = require('fs');
+
+var myCss = {
+    path : 'login/login.css',
+};
 
 router.get("/", checkToken, (req,res) => {
-    res.render("Login/login.ejs", {token: req.token});
+    res.render("Login/login.ejs", {myCss: myCss, token: req.token});
 });
 
 router.get("/options/0", checkToken, (req,res) => {
-    res.render("Login/options.ejs", {type: 0,token: req.token});
+    res.render("Login/options.ejs", {type: 0,token: req.token,myCss: null});
 });
 
 router.get("/options/1", checkToken, (req,res) => {
@@ -48,7 +53,7 @@ router.post("/", async (req,res) => {
 });
 
 router.get("/new", checkToken, (req,res) => {
-    res.render("Login/register.ejs", {token: req.token});
+    res.render("Login/register.ejs", {token: req.token,     });
 });
 
 router.post("/new", async (req,res) => {
@@ -70,7 +75,7 @@ router.post("/new", async (req,res) => {
 
 router.get("/out", checkToken, (req,res) => {
     res.cookie('jwt', '', {expires: new Date(0)});
-    res.render("Login/login.ejs", {token: null});
+    res.render("Login/login.ejs", {token: null,myCss: myCss});
 });
 
 

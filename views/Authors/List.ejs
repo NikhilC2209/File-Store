@@ -1,4 +1,7 @@
 <h1> All Authors </h1>
 <% authors.forEach(author => { %>
-    <div><%= author.Name %></div>
+    <div>
+        <%= author.Name %>
+        <button><a href = "<%= author.id %>">View</a></button>
+    </div>
 <% }) %>

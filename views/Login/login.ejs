@@ -1,14 +1,32 @@
-<h1>Login!</h1>
+<div class = "container log-container d-flex flex-column justify-content-center align-items-center bg-light border">
+<h1 class = "log-head">Login!</h1>      
 <form action = "/login" method = "post">
-    <div>
-        <label for = "email"> Email </label>    
-        <input type = "email" name = "email" id = "email" />
-    </div>
-    <div>
-        <label for = "password"> Password </label>
-        <input type = "password" name = "password" id = "password" />
-    </div>
-    <div>
-        <button type = "submit"> Submit </button>
+    <div class = "row">
+        <div class = "col mt-3 pt-3">
+            <span><i class="fas log-icon fa-user" id = "icon"></i></span>
+            <input type = "email" class = "log-user" placeholder = "Username" name = "email" id = "email" required />
+        </div>
+    </div>    
+    <div class = "row mt-4 pt-3">
+        <div class = "col">
+            <span><i class="fas log-icon fa-unlock-alt"></i></span>
+            <input type = "password" class = "log-user" placeholder = "Password" name = "password" id = "password" required />
+        </div>    
+    </div>  
+    <div class = "row mt-4 pt-3 log-links"> 
+        <div class = "col">
+            <a href = "#">Forgot password?</a>
+        </div>    
+    </div>  
+    <div class = " row mt-4 log-links"> 
+        <div class = "col">
+            <a href = "#">Sign Up</a>
+        </div>
+    </div>  
+    <div class = "row text-center mt-4 pt-3">
+        <div class = "col">
+            <button class = "log-btn p-3" type = "submit"> Log In </button>
+        </div>
     </div>    
 </form>
+</div>

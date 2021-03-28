@@ -1,12 +1,14 @@
-<h3>List of all Books</h3>
-<div style = "display: inline-flex">
-<% books.forEach(book => { %>
-    <div class = "ml-5 mr-5">
-        <img src = "<%= book.coverImagePath %>" height = "200" width = "150">
-        <div><%= book.Name %></div>
-    </div>    
-<% }) %> 
-</div>
-<div>
-    <a href = "/login/out"><button>Logout</button></a>
+<div class = "container text-light">
+    <h3 class = "mb-4">List of all Books</h3>
+    <div class="card-deck pt-3">
+        <% books.forEach(book => { %>
+            <div class = "card mx-4">
+                <button class = "card-btn"><a href = "<%= book.id %>"><img class="card-img-top" src="<%= book.coverImagePath %>"></a></button>
+                <div class="card-body">
+                    <h3><%= book.Name %></h3>
+                    <p>By   <%= book.Author.Name %></p>
+                </div>
+            </div>    
+        <% }) %> 
+    </div>
 </div>

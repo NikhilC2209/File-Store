@@ -15,8 +15,9 @@ const checkToken = require("./checkToken.js");
 }*/
 
 router.get("/", checkToken, (req,res) => {
-    console.log(req.token);
-    res.render("first", {token: req.token});
+    res.render("first", {token: req.token,
+                        layout: "layouts/index"   
+                    });
 });
 
 module.exports = router;

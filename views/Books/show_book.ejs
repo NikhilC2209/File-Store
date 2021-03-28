@@ -1,0 +1,10 @@
+<h1>
+    <%= book.Name %> 
+</h1>
+<div style = "display: inline-flex">
+    <div>
+        <img src = "<%= book.coverImagePath %>" height = "200" width = "150">
+        <div><%= book.Author.Name %></div>
+        <div><%= book.pageCount %></div>
+    </div>    
+</div>
